@@ -1,9 +1,12 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,6 +67,10 @@ public class SocialMediaController {
                 message.getMessageText().isBlank() || message.getMessageText().length() > 255) {
             return ResponseEntity.status(400).body(null);
         } else return ResponseEntity.status(200).body(messageService.addMessage(message));
+    }
 
+    @GetMapping("messages")
+    public @ResponseBody ResponseEntity<List<Message>> allMessages() {
+        return ResponseEntity.status(200).body(messageService.getAllMessages());
     }
 }
