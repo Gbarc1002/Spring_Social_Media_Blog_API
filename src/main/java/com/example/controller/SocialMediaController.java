@@ -100,4 +100,9 @@ public class SocialMediaController {
             return ResponseEntity.status(400).body(null);
         } else return ResponseEntity.status(200).body(messageService.updateMessage(messageId, messageText));
     }
+
+    @GetMapping("accounts/{accountId}/messages")
+    public @ResponseBody ResponseEntity<List<Message>> getMessagesFromUser(@PathVariable int accountId) {
+        return ResponseEntity.status(200).body(messageService.getAllMessagesFromUser(accountId));
+    }
 }
