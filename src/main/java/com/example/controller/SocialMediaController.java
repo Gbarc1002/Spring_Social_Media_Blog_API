@@ -35,7 +35,7 @@ public class SocialMediaController {
                 accountInput.getPassword().length() < 4) {
             
             return ResponseEntity.status(400).body(null);
-            
+
         } else if (accountService.accountExistsByUsername(accountInput.getUsername())) {
             return ResponseEntity.status(409).body(null);
         } else {
@@ -43,6 +43,15 @@ public class SocialMediaController {
             return ResponseEntity.status(200).body(account);
         }
         
+    }
+
+    @PostMapping("login")
+    public @ResponseBody ResponseEntity<Account> login(@RequestBody Account input) {
+        Account account = accountService.loginCredentials(input);
+        if (account != null) {
+            return ResponseEntity.status(200).body(account);
+        }
+        return ResponseEntity.status(401).body(null);
     }
 
     

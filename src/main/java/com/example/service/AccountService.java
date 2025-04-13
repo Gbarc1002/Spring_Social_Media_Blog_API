@@ -29,4 +29,12 @@ public class AccountService {
         }
         return false;
     }
+
+    public Account loginCredentials(Account account) {
+        Optional<Account> accountOptional = accountRepository.findAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
+        if (accountOptional.isPresent()) {
+            return accountOptional.get();
+        }
+        return null;
+    }
 }
