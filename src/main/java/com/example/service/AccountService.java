@@ -37,4 +37,11 @@ public class AccountService {
         }
         return null;
     }
+
+    public Boolean accountExistsById(int accountId) {
+        Optional<Account> accountOptional = accountRepository.findAccountByAccountId(accountId);
+        if (accountOptional.isPresent()) {
+            return true;
+        } else return false;
+    }
 }
