@@ -54,6 +54,21 @@ public class MessageService {
         return rows;
     }
 
+    public int updateMessage(int messageId, String messageText) {
+        Optional<Message> messageOptional = messageRepository.findMessageByMessageIdOptional(messageId);
+        int rows = 0;
+        if (messageOptional.isPresent()) {
+            Message oldMessage = messageOptional.get();
+            Message newMessage = new Message(   oldMessage.getMessageId(), 
+                                                oldMessage.getPostedBy(), 
+                                                messageText, 
+                                                oldMessage.getTimePostedEpoch());
+            messageRepository.save(newMessage);
+            rows++;
+        }
+        return rows;
+    }
+
     public List<Message> getAllMessagesFromUser(int accountId) {
         return messageRepository.findMessagesByPostedBy(accountId);
     }
